@@ -11,7 +11,7 @@
 %}
 
 %nonassoc ID NUM STRING
-%nonassoc VOID INT BYTE BOOL B 
+%nonassoc VOID INT BYTE BOOL B CONST 
 /* %nonassoc VOID INT BYTE BOOL B ENUM */
 %nonassoc TRUE FALSE
 %nonassoc COMMA SC BREAK CONTINUE
@@ -37,40 +37,31 @@
 %% 
 Program :  Funcs {printProductionRule(1);}
 ;
-/* keep as is  */
 Funcs : %empty {printProductionRule(2);}
 		|FuncDecl Funcs {printProductionRule(3);}
 ;
-/* keep as is */
 FuncDecl : RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE {printProductionRule(4);} 
 ;
-
-
-/* keep as is */
-RetType : Type {printProductionRule(8);}
-		| VOID {printProductionRule(9);}
+RetType : Type {printProductionRule(5);}
+		| VOID {printProductionRule(6);}
 ;
 
-/* keep as is */
-Formals : %empty {printProductionRule(10);}
-		| FormalsList {printProductionRule(11);}
+Formals : %empty {printProductionRule(7);}
+		| FormalsList {printProductionRule(8);}
 ;
 
-/* keep as is */
-FormalsList : FormalDecl {printProductionRule(12);}
-		| FormalDecl COMMA FormalsList {printProductionRule(13);}
+FormalsList : FormalDecl {printProductionRule(9);}
+		| FormalDecl COMMA FormalsList {printProductionRule(10);}
 ;
 
-FormalDecl : Type ID {printProductionRule(14);}
+FormalDecl : Type ID {printProductionRule(11);}
 ;
-
-
-/* keep as is */
-Statements : Statement {printProductionRule(19);}
-		| Statements Statement {printProductionRule(20);}
+Statements : Statement {printProductionRule(12);}
+		| Statements Statement {printProductionRule(13);}
 ;
 /* modify */
-Statement : LBRACE Statements RBRACE {printProductionRule(21);}
+Statement : LBRACE Statements RBRACE {printProductionRule(14);}
+/* stopped here */
 		| Type ID SC {printProductionRule(22);}
 		| Type ID ASSIGN Exp SC {printProductionRule(25);}
 		| ID ASSIGN Exp SC {printProductionRule(27);}
@@ -99,8 +90,9 @@ Type : INT {printProductionRule(40);}
 		| BYTE {printProductionRule(41);}
 		| BOOL {printProductionRule(42);}
 ;
-
-
+TypeAnnotation : %empty {printProductionRule()}
+			   | CONST {printProductionRule()}
+;
 /* modify */
 Exp : LPAREN Exp RPAREN {printProductionRule(44);}
 		| Exp PLUSMINUS Exp {printProductionRule(45);}
