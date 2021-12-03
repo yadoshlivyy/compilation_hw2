@@ -11,38 +11,31 @@
 %option noyywrap
 digit   		([0-9])
 letter  		([a-zA-Z])
-letterU			([A-Z])
-letterL			([a-z])
 letter_digit	([0-9A-Za-z])
 whitespace		([\r\t\n ])
+sc				(;)
 comma			(,)
 lparen			(\()
 rparen			(\))
 lbrace			(\{)
 rbrace			(\})
 assign			(=)
-relop			((<)|(>)|(<=)|(>=))
-eq				((==)|(!=))
-multdiv			([(*)(/)])
-plusminus		([(+)(\-)])
-comment			("//"[^\r\n(\r\n)]*)
-quote			("\"")
-hex_digit		[0-9A-Fa-f]
-hexa			{hex_digit}{2}
-printable_char ([\x20-\x7E]|\x09|\x0A|\x0D)
+relop			((==)|(!=)|(<)|(>)|(<=)|(>=))
+binop		([(+)(\-)(*)(/)])
+
+
 
 
 
 %%
 
  
-/* "enum"						return ENUM; */
 "void"						return VOID;
 "int"						return INT;
 "byte"						return BYTE;
 "b"							return B;
 "bool"						return BOOL;
-"const"						return CONST;
+"const"                     return CONST;
 "and"						return AND;
 "or"						return OR;
 "not"						return NOT;
@@ -54,17 +47,15 @@ printable_char ([\x20-\x7E]|\x09|\x0A|\x0D)
 "while"						return WHILE;
 "break"						return BREAK;
 "continue"					return CONTINUE;
-";"							return SC;
-","							return COMMA;
-"\("						return LPAREN;
-"\)"					return RPAREN;
-"\{"					return LBRACE;
-"\}"					return RBRACE;
-""					return ASSIGN;
-{plusminus}					return PLUSMINUS;
-{multdiv}					return MULTDIV;
+{sc}						return SC;
+{comma}						return COMMA;
+{lparen}					return LPAREN;
+{rparen}					return RPAREN;
+{lbrace}					return LBRACE;
+{rbrace}					return RBRACE;
+{assign}					return ASSIGN;
 {relop}						return RELOP;
-{eq}						return EQ;
+{binop}						return BINOP;
 {letter}{letter_digit}*		return ID;
 ([1-9]{digit}*)|(0)			return NUM;
 \"([^\n\r\"\\]|\\[rnt"\\])+\" 	return STRING;	
