@@ -1,0 +1,52 @@
+{
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "C/C++",
+      "command": "g++.exe",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-std=c++17",
+        "-g",
+        "*.c",
+        "*.cpp",
+        "-o",
+        "hw2"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": ["bison"]
+    },
+    {
+      "type": "shell",
+      "label": "bison",
+      "command": "win_bison -Wcounterexamples -d parser.ypp",
+      "dependsOn": ["flex"]
+    },
+    {
+      "type": "shell",
+      "label": "flex",
+      "command": "win_flex scanner.lex",
+      "dependsOn": ["clean"]
+    },
+    {
+      "type": "shell",
+      "label": "clean",
+      "command": "rm -f lex.yy.c parser.tab.*pp hw2",
+      "problemMatcher": []
+    },
+    {
+      "type": "shell",
+      "label": "test",
+      "command": "python ./test_runner.py",
+      "problemMatcher": [],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    }
+  ],
+  "version": "2.0.0"
+}
