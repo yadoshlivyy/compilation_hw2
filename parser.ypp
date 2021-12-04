@@ -82,15 +82,13 @@ Type : INT {printProductionRule(30);}
 		| BYTE {printProductionRule(31);}
 		| BOOL {printProductionRule(32);}
 ;
-TypeAnnotation : %empty {printProductionRule(33)}
-			   | CONST {printProductionRule(34)}
+TypeAnnotation : %empty {printProductionRule(33);}
+			   | CONST {printProductionRule(34);}
 ;
 /* modify */
 Exp : LPAREN Exp RPAREN {printProductionRule(35);}
-		/* | Exp BINOP Exp {printProductionRule(36)} */
-		/* critical non compiled code upwards */
-		/* | Exp PLUSMINUS Exp {printProductionRule(45);}
-		| Exp MULTDIV Exp {printProductionRule(45);} */
+		| Exp PLUSMINUS Exp {printProductionRule(36);}
+		| Exp MULTDIV Exp {printProductionRule(36);}
 		| ID {printProductionRule(37);}
 		| Call {printProductionRule(38);}
 		| NUM {printProductionRule(39);}
@@ -102,8 +100,7 @@ Exp : LPAREN Exp RPAREN {printProductionRule(35);}
 		| Exp AND Exp {printProductionRule(45);}
 		| Exp OR Exp {printProductionRule(46);}
 		| Exp RELOP Exp {printProductionRule(47);}
-		/* | Exp EQ Exp {printProductionRule(47);} */
-		/* critical non compiled code here upwards */
+		| Exp EQ Exp {printProductionRule(47);}
 		| LPAREN TypeAnnotation Type RPAREN Exp {printProductionRule(48);}
 ;
 		

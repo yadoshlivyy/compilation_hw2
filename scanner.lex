@@ -20,8 +20,10 @@ rparen			(\))
 lbrace			(\{)
 rbrace			(\})
 assign			(=)
-relop			((==)|(!=)|(<)|(>)|(<=)|(>=))
-binop		([(+)(\-)(*)(/)])
+relop			((<)|(>)|(<=)|(>=))
+eq				((==)|(!=))
+multdiv			([(*)(/)])
+plusminus		([(+)(\-)])
 
 
 
@@ -54,8 +56,10 @@ binop		([(+)(\-)(*)(/)])
 {lbrace}					return LBRACE;
 {rbrace}					return RBRACE;
 {assign}					return ASSIGN;
+{plusminus}					return PLUSMINUS;
+{multdiv}					return MULTDIV;
 {relop}						return RELOP;
-{binop}						return BINOP;
+{eq}						return EQ;
 {letter}{letter_digit}*		return ID;
 ([1-9]{digit}*)|(0)			return NUM;
 \"([^\n\r\"\\]|\\[rnt"\\])+\" 	return STRING;	
