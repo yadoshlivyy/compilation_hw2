@@ -1,3 +1,5 @@
 hussein*/
 parser.tab.*
 lex.yy.c
+tests2/
+*.exe
