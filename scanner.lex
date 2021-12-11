@@ -1,6 +1,6 @@
 %{
 
-/* Declarations section */
+/*  primary declaratrion section */
 #include <stdio.h>
 #include <cstdlib>
 #include "output.hpp"
@@ -11,19 +11,19 @@
 %option noyywrap
 digit   		([0-9])
 letter  		([a-zA-Z])
-letter_digit	([0-9A-Za-z])
-whitespace		([\r\t\n ])
+letter_or_digit	([0-9A-Za-z])
+whitespace_endl_or_tab		([\r\t\n ])
 sc				(;)
 comma			(,)
-lparen			(\()
-rparen			(\))
-lbrace			(\{)
-rbrace			(\})
-assign			(=)
-relop			((<)|(>)|(<=)|(>=))
-eq				((==)|(!=))
-multdiv			([(*)(/)])
-plusminus		([(+)(\-)])
+left_paren			(\()
+right_paren			(\))
+left_brace			(\{)
+right_brace			(\})
+assignement			(=)
+relative_op			((<)|(>)|(<=)|(>=))
+equality_op				((==)|(!=))
+div_or_mult			([(*)(/)])
+plus_or_minus		([(+)(\-)])
 
 
 
@@ -51,21 +51,21 @@ plusminus		([(+)(\-)])
 "continue"					return CONTINUE;
 {sc}						return SC;
 {comma}						return COMMA;
-{lparen}					return LPAREN;
-{rparen}					return RPAREN;
-{lbrace}					return LBRACE;
-{rbrace}					return RBRACE;
-{assign}					return ASSIGN;
-{plusminus}					return PLUSMINUS;
-{multdiv}					return MULTDIV;
-{relop}						return RELOP;
-{eq}						return EQ;
-{letter}{letter_digit}*		return ID;
+{left_paren}					return LPAREN;
+{right_paren}					return RPAREN;
+{left_brace}					return LBRACE;
+{right_brace}					return RBRACE;
+{assignement}					return ASSIGN;
+{plus_or_minus}					return PLUSMINUS;
+{div_or_mult}					return MULTDIV;
+{relative_op}						return RELOP;
+{equality_op}						return EQ;
+{letter}{letter_or_digit}*		return ID;
 ([1-9]{digit}*)|(0)			return NUM;
 \"([^\n\r\"\\]|\\[rnt"\\])+\" 	return STRING;	
 
 "//"[^\r\n]*[\r|\n|\r\n]? 	;
-{whitespace}				;
+{whitespace_endl_or_tab}				;
 
 .							{output::errorLex(yylineno); exit(0); }
 

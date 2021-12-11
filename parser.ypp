@@ -12,17 +12,13 @@
 
 %nonassoc ID NUM STRING
 %nonassoc VOID INT BYTE BOOL B CONST 
-/* %nonassoc VOID INT BYTE BOOL B ENUM */
 %nonassoc TRUE FALSE
 %nonassoc COMMA SC BREAK CONTINUE
-
 %nonassoc RETURN 
 %nonassoc WHILE 
-
 %left IF
-%nonassoc WITHOUTELSE
+%nonassoc NOELSE
 %nonassoc ELSE 
-
 %right ASSIGN
 %left OR 
 %left AND 
@@ -66,7 +62,7 @@ Statement : LBRACE Statements RBRACE {printProductionRule(14);}
 		| Call SC {printProductionRule(18);}
 		| RETURN SC {printProductionRule(19);}
 		| RETURN Exp SC {printProductionRule(20);}
-		| IF LPAREN Exp RPAREN Statement %prec WITHOUTELSE {printProductionRule(21);}
+		| IF LPAREN Exp RPAREN Statement %prec NOELSE {printProductionRule(21);}
 		| IF LPAREN Exp RPAREN Statement ELSE Statement {printProductionRule(22);}
 		| WHILE LPAREN Exp RPAREN Statement {printProductionRule(23);}
 		| BREAK SC {printProductionRule(24);}
@@ -85,7 +81,6 @@ Type : INT {printProductionRule(30);}
 TypeAnnotation : %empty {printProductionRule(33);}
 			   | CONST {printProductionRule(34);}
 ;
-/* modify */
 Exp : LPAREN Exp RPAREN {printProductionRule(35);}
 		| Exp PLUSMINUS Exp {printProductionRule(36);}
 		| Exp MULTDIV Exp {printProductionRule(36);}
