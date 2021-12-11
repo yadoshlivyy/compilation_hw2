@@ -54,7 +54,7 @@ FormalsList : FormalDecl {printProductionRule(9);}
 		| FormalDecl COMMA FormalsList {printProductionRule(10);}
 ;
 
-FormalDecl : Type ID {printProductionRule(11);}
+FormalDecl :TypeAnnotation Type ID {printProductionRule(11);}
 ;
 Statements : Statement {printProductionRule(12);}
 		| Statements Statement {printProductionRule(13);}
